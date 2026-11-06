@@ -8,12 +8,23 @@ const weatherRoutes = require('./routes/weatherRoutes');
 
 const app = express();
 
-// di balik proxy (Render/Railway) supaya rate limit membaca IP asli pengguna
-if (env.nodeEnv === 'production') app.set('trust proxy', 1);
+// 1. Selalu aktifkan trust proxy agar express-rate-limit tidak error di Vercel
+app.set('trust proxy', 1);
 
-// API ini memang dipanggil dari domain frontend yang berbeda
+// 2. Konfigurasi Helmet agar tidak memblokir akses lintas domain
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
-app.use(cors({ origin: env.frontendUrls })); // sebelum rate limiter, agar respons 429 tetap terbaca browser
+
+// 3. Izinkan akses CORS dari semua domain (termasuk semua preview & production URL Vercel)
+app.use(cors());
+
+app.use(express.json());
+
+// Route opsional untuk mengecek apakah server backend hidup saat dibuka langsung di browser
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Weather API Server is running' });
+});
+
+// 4. Pasang rate limiter dan routes di /api
 app.use('/api', apiLimiter, weatherRoutes);
 
 app.use(notFound);

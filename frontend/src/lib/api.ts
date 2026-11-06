@@ -1,6 +1,8 @@
 import type { AirQuality, CitySuggestion, ForecastData, Query, Weather } from '../types/weather'
 
-const API_URL = import.meta.env.PROD ? '' : 'http://localhost:3000';
+const API_URL = import.meta.env.PROD 
+  ? 'https://weather-apps-five.vercel.app' 
+  : 'http://localhost:3000';
 
 async function fetchJson<T>(path: string, signal?: AbortSignal): Promise<T> {
   let res: Response
