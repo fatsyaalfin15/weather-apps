@@ -1,8 +1,8 @@
 require('dotenv').config();
 
 if (!process.env.OPENWEATHER_API_KEY) {
-  console.error('OPENWEATHER_API_KEY belum diisi di file .env');
-  process.exit(1);
+  console.error('PERINGATAN: OPENWEATHER_API_KEY belum diisi di Environment Variables Vercel!');
+  // Jangan gunakan process.exit(1) di serverless Vercel karena akan memicu 502 Bad Gateway
 }
 
 module.exports = {
