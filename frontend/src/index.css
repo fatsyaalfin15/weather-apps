@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@keyframes drift { from { transform: translateX(-40vw); } to { transform: translateX(120vw); } }
+@keyframes fall { from { transform: translate3d(0, -10vh, 0); } to { transform: translate3d(-6vh, 110vh, 0); } }
+@keyframes snow {
+  0% { transform: translate3d(0, -10vh, 0); }
+  50% { transform: translate3d(24px, 50vh, 0); }
+  100% { transform: translate3d(-12px, 110vh, 0); }
+}
+@keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+@keyframes sun { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.1); opacity: 1; } }
+@keyframes flash {
+  0%, 92%, 100% { opacity: 0; }
+  93% { opacity: 0.55; }
+  94% { opacity: 0.05; }
+  95% { opacity: 0.4; }
+  97% { opacity: 0; }
+}
+@keyframes fog { 0%, 100% { transform: translateX(-8%); } 50% { transform: translateX(8%); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+.anim-drift { animation: drift var(--dur, 90s) linear var(--delay, 0s) infinite; }
+.anim-fall { animation: fall var(--dur, 1s) linear var(--delay, 0s) infinite; }
+.anim-snow { animation: snow var(--dur, 10s) linear var(--delay, 0s) infinite; }
+.anim-twinkle { animation: twinkle var(--dur, 3s) ease-in-out var(--delay, 0s) infinite; }
+.anim-sun { animation: sun 6s ease-in-out infinite; }
+.anim-flash { animation: flash 7s linear infinite; }
+.anim-fog { animation: fog var(--dur, 20s) ease-in-out var(--delay, 0s) infinite; }
+.anim-fade-in { animation: fade-in 1s ease both; }
+.anim-fade-up { animation: fade-up 0.5s ease var(--delay, 0s) both; }
+.anim-float { animation: float 3s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="anim-"] { animation: none !important; }
+}
