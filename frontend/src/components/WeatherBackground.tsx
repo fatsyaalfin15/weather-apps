@@ -74,8 +74,10 @@ function Cloud({ c, tone }: { c: (typeof CLOUDS)[number]; tone: string }) {
   )
 }
 
-export default function WeatherBackground({ icon }: { icon?: string }) {
-  const { scene, night } = getScene(icon)
+type Props = { icon?: string; temp?: number }
+
+export default function WeatherBackground({ icon, temp }: Props) {
+  const { scene, night } = getScene(icon, temp)
   const heavy = scene === 'clouds' || scene === 'rain' || scene === 'thunder'
 
   return (
@@ -98,31 +100,21 @@ export default function WeatherBackground({ icon }: { icon?: string }) {
       />
 
       <div key={scene} className="anim-fade-in absolute inset-0">
-        {scene === 'clear-day' && (
-          <div className="absolute right-[8%] top-[6%]">
-            <div className="anim-sun h-28 w-28 rounded-full bg-amber-200/80 shadow-[0_0_80px_30px_rgba(253,230,138,0.45)] sm:h-36 sm:w-36" />
-          </div>
-        )}
-
-        {scene === 'clear-night' && (
-          <>
-            <div className="absolute right-[10%] top-[8%] h-20 w-20 rounded-full bg-slate-100/90 shadow-[0_0_60px_15px_rgba(226,232,240,0.35)]" />
-            {STARS.map((s, i) => (
-              <span
-                key={i}
-                className="anim-twinkle absolute rounded-full bg-white"
-                style={css({
-                  left: `${s.left}%`,
-                  top: `${s.top}%`,
-                  width: s.size,
-                  height: s.size,
-                  '--dur': `${s.dur}s`,
-                  '--delay': `${s.delay}s`,
-                })}
-              />
-            ))}
-          </>
-        )}
+        {scene === 'clear-night' &&
+          STARS.map((s, i) => (
+            <span
+              key={i}
+              className="anim-twinkle absolute rounded-full bg-white"
+              style={css({
+                left: `${s.left}%`,
+                top: `${s.top}%`,
+                width: s.size,
+                height: s.size,
+                '--dur': `${s.dur}s`,
+                '--delay': `${s.delay}s`,
+              })}
+            />
+          ))}
 
         {CLOUDS.slice(0, CLOUD_COUNT[scene]).map((c, i) => (
           <Cloud key={i} c={c} tone={heavy ? 'bg-slate-200/25' : 'bg-white/25'} />

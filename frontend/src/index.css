@@ -9,7 +9,6 @@
   100% { transform: translate3d(-12px, 110vh, 0); }
 }
 @keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
-@keyframes sun { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.1); opacity: 1; } }
 @keyframes flash {
   0%, 92%, 100% { opacity: 0; }
   93% { opacity: 0.55; }
@@ -26,7 +25,6 @@
 .anim-fall { animation: fall var(--dur, 1s) linear var(--delay, 0s) infinite; }
 .anim-snow { animation: snow var(--dur, 10s) linear var(--delay, 0s) infinite; }
 .anim-twinkle { animation: twinkle var(--dur, 3s) ease-in-out var(--delay, 0s) infinite; }
-.anim-sun { animation: sun 6s ease-in-out infinite; }
 .anim-flash { animation: flash 7s linear infinite; }
 .anim-fog { animation: fog var(--dur, 20s) ease-in-out var(--delay, 0s) infinite; }
 .anim-fade-in { animation: fade-in 1s ease both; }

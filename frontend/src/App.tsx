@@ -66,7 +66,7 @@ export default function App() {
 
   return (
     <main className="relative isolate overflow-x-hidden">
-      <WeatherBackground icon={weather?.icon} />
+      <WeatherBackground icon={weather?.icon} temp={weather?.temp} />
 
       <div className="mx-auto min-h-screen w-full max-w-6xl px-4 pb-12 pt-4">
         {/* Bilah atas */}
